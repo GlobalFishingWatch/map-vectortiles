@@ -1,0 +1,11 @@
+{
+  "name": "fishing-vector",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:nerik/fishing-vector.git",
+  "author": "erik <erik.escoffier@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "mapbox-gl": "^0.38.0"
+  }
+}
