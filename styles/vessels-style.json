@@ -1,0 +1,54 @@
+{
+  "version": 8,
+  "name": "Vessels",
+  "metadata": {
+  },
+  "center": [
+      0,
+      0
+  ],
+  "zoom": 3,
+  "bearing": 0,
+  "pitch": 0,
+  "sources": {
+    "natural_earth_shaded_relief": {
+      "maxzoom": 6,
+      "tileSize": 256,
+      "tiles": [
+        "https://klokantech.github.io/naturalearthtiles/tiles/natural_earth_2_shaded_relief.raster/{z}/{x}/{y}.png"
+      ],
+      "type": "raster"
+    },
+    "vessels": {
+      "type": "vector",
+      "url": "http://localhost:8080/data/vessels.json"
+    }
+  },
+  "layers": [
+    {
+      "id": "natural_earth",
+      "type": "raster",
+      "source": "natural_earth_shaded_relief",
+      "maxzoom": 6,
+      "layout": {
+        "visibility": "visible"
+      }
+    },
+    {
+        "id": "vessels",
+        "type": "circle",
+        "source": "vessels",
+        "source-layer": "vessels",
+        "layout": {
+            "visibility": "visible"
+        },
+        "paint": {
+            "circle-radius": 5,
+            "circle-color": "hsl(197, 100%, 77%)",
+            "circle-blur": 1,
+            "circle-stroke-color": "hsl(222, 74%, 50%)",
+            "circle-stroke-width": 6
+        }
+    }
+  ]
+}

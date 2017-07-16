@@ -90,11 +90,11 @@
     "sources": {
       "openmaptiles": {
         "type": "vector",
-        "url": "http://34.230.92.118:8080/data/haiti.json"
+        "url": "http://localhost:8080/data/haiti.json"
       },
       "vesselsxl": {
         "type": "vector",
-        "url": "http://34.230.92.118:8080/data/vesselsxl.json"
+        "url": "http://localhost:8080/data/vessels.json"
       }
     },
     "sprite": "mapbox://sprites/danielcaso/cj49xom6535sn2spado3w5to6",

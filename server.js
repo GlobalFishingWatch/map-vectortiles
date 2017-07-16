@@ -4,7 +4,7 @@ const http = require('http');
 require('@mapbox/mbtiles').registerProtocols(tilelive);
 // require("tilelive-modules/loader")(tilelive);
 
-const mbtileFile = process.argv.length >= 3 ? process.argv[2] : 'data/vesselsxl.mbtiles';
+const mbtileFile = process.argv.length >= 3 ? process.argv[2] : 'data/vessels.mbtiles';
 console.log(`loading ${mbtileFile}`)
 
 tilelive.load(`mbtiles://./${mbtileFile}`, function(err, source) {

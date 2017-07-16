@@ -1,0 +1,35 @@
+{
+  "options": {
+    "paths": {
+      "root": "",
+      "fonts": "",
+      "sprites": "",
+      "styles": "styles",
+      "mbtiles": "data"
+    },
+    "formatEncoding": {
+      "png": 6,
+      "jpeg": 80,
+      "webp": 90
+    }
+  },
+  "styles": {
+    "osm-liberty": {
+      "style": "osm-liberty.json"
+    },
+    "vessels": {
+      "style": "vessels-style.json"
+    },
+    "our-north-star": {
+      "style": "our-north-star/our-north-star.json"
+    }
+  },
+  "data": {
+    "haiti": {
+      "mbtiles": "haiti.mbtiles"
+    },
+    "vessels": {
+      "mbtiles": "vessels.mbtiles"
+    }
+  }
+}
