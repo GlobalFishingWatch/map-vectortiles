@@ -1,3 +1,18 @@
+Run simple tilelive server (port 7070):
+```
+npm start
+```
+
+Run tileserver-gl (port 8080):
+```
+npm run tileserver-gl
+```
+
+Convert GeoJSON data to mbtiles:
+```
+npm run tippecanoe
+```
+
 #### Convert Mapbox style
 
 ```
