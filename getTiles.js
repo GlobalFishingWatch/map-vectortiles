@@ -39,7 +39,6 @@ const getNextZoom = (tiles) => {
     }
     return fetch(url)
     .then(res => {
-      console.log(res.status)
       var dest = fs.createWriteStream(xDir + '/' + y)
       res.body.pipe(dest)
     })
