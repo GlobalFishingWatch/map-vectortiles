@@ -4,9 +4,12 @@ var vtpbf = require('vt-pbf');
 var geojsonvt = require('geojson-vt');
 const fs = require('fs')
 
-var tiles;
-var initialized = false;
-
+// Expressed in ms, for example 86400000 is 1 day (24*60*60*1000)
+var PLAYBACK_PRECISION = 86400000;
+var TIMELINE_OVERALL_START_DATE = new Date(Date.UTC(2012, 0, 1));
+var VESSELS_HEATMAP_STYLE_ZOOM_THRESHOLD = 6;
+var VESSELS_MINIMUM_RADIUS_FACTOR = .25;
+var VESSELS_MINIMUM_OPACITY = 0.5;
 
 var getWorldCoordinates = function(lat, lng) {
   var x = (lng + 180) / 360 * 256;
@@ -14,22 +17,15 @@ var getWorldCoordinates = function(lat, lng) {
   return [x, y];
 };
 
-// Expressed in ms, for example 86400000 is 1 day (24*60*60*1000)
-var PLAYBACK_PRECISION = 86400000;
-
 var getTimeAtPrecision = function(timestamp) {
-  Math.floor(timestamp / PLAYBACK_PRECISION);
+  return Math.floor(timestamp / PLAYBACK_PRECISION);
 }
-
-var TIMELINE_OVERALL_START_DATE = new Date(Date.UTC(2012, 0, 1));
 var TIMELINE_OVERALL_START_DATE_OFFSET = getTimeAtPrecision(TIMELINE_OVERALL_START_DATE.getTime());
 
 var getOffsetedTimeAtPrecision = function(timestamp) {
   return Math.max(0, getTimeAtPrecision(timestamp) - TIMELINE_OVERALL_START_DATE_OFFSET);
 }
 
-var VESSELS_HEATMAP_STYLE_ZOOM_THRESHOLD = 6;
-var VESSELS_MINIMUM_RADIUS_FACTOR = .25;
 var getZoomFactorRadiusRenderingMode = function(zoom) {
   return (zoom < VESSELS_HEATMAP_STYLE_ZOOM_THRESHOLD) ? 0.3 : 0.15;
 }
@@ -44,8 +40,6 @@ var getRadius = function(sigma, zoomFactorRadiusRenderingMode, zoomFactorRadius)
   return radius;
 };
 
-
-var VESSELS_MINIMUM_OPACITY = 0.5;
 var getOpacity = function(weight, zoomFactorOpacity) {
   var opacity = 3 + Math.log(weight * zoomFactorOpacity);
   //  avoid negative values, check why that happens
@@ -56,7 +50,9 @@ var getOpacity = function(weight, zoomFactorOpacity) {
   return opacity;
 }
 
-module.exports = function _(data, tile, writeData, done) {
+
+
+module.exports = function(data, tile, writeData, done) {
 
   var x = tile[0];
   var y = tile[1];
@@ -109,12 +105,16 @@ module.exports = function _(data, tile, writeData, done) {
       }
       geoJson.features.push(pt)
     }
-    var tileIndex = geojsonvt(geoJson);
-    var tileData = tileIndex.getTile(z, x, y);
-    // var pbfout = zlib.gzipSync(vtpbf.fromGeojsonVt({ 'vessels': tileData }));
-    var pbfout = vtpbf.fromGeojsonVt({ 'vessels': tileData });
-    fs.writeFileSync(global.mapOptions.dest + '/' + tile.join('-') + '.pbf', pbfout)
-    done(null, {d: TIMELINE_OVERALL_START_DATE_OFFSET});
+    try {
+      var tileIndex = geojsonvt(geoJson);
+      var tileData = tileIndex.getTile(z, x, y);
+      // var pbfout = zlib.gzipSync(vtpbf.fromGeojsonVt({ 'vessels': tileData }));
+      var pbfout = vtpbf.fromGeojsonVt({ 'vessels': tileData });
+    } catch(e) {
+      done(null, {error: e})
+    }
+    fs.writeFileSync(global.mapOptions.dest + '/' + z + ',' + x + ',' + y + '.pbf', pbfout)
+    done(null, tileData);
   }
   pc.reject = function(data) {
     done(null);

@@ -16,8 +16,9 @@ reduce();
 
 function reduce() {
   tileReduce({
-    bbox: [-17.578125,34.452218,-4.042969,44.213710],
-    zoom: 8,
+    // bbox: [-17.578125,34.452218,-4.042969,44.213710],
+    bbox:  [-179, -89, 179, 89],
+    zoom: 4,
     map: path.join(__dirname, '/map.js'),
     sources: [{
       name: 'vessels',
@@ -30,8 +31,11 @@ function reduce() {
     }
   })
   .on('reduce', function(data, tile) {
+    if (tile.error) {
+      console.log(tile.error)
+    }
     // console.log('tile done', tile, data.features[0].properties)
-    console.log('tile done', tile, data)
+    // console.log('tile done', tile, data.source[0].tags)
   })
   .on('end', function() {
     console.log('reduce complete');
