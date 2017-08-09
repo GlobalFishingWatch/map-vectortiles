@@ -7,9 +7,11 @@
   "license": "MIT",
   "scripts": {
     "tippecanoe": "tippecanoe -o data/vessels.mbtiles data/vessels.json -f --maximum-zoom=3 --minimum-zoom=3",
-    "tileserver-gl": "tileserver-gl-light -c ./tileserver-gl-config.json"
+    "tileserver-gl": "tileserver-gl-light -c ./tileserver-gl-config.json",
+    "tileserver-pbf": "http-server -p 9090 --cors"
   },
   "dependencies": {
+    "@mapbox/tile-cover": "^3.0.2",
     "@mapbox/tile-reduce": "nerik/tile-reduce",
     "@mapbox/tilebelt": "^1.0.1",
     "@mapbox/tilelive": "^5.12.6",
@@ -22,6 +24,7 @@
     "node-fetch": "^1.7.1",
     "rimraf": "^2.6.1",
     "tileserver-gl-light": "^2.1.0",
+    "turf-bbox-polygon": "^3.0.12",
     "vt-pbf": "^2.1.4",
     "xmlhttprequest": "^1.8.0"
   }
