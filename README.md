@@ -1,22 +1,45 @@
-Start by installing all dependencies (npm i). This has been tested with node v4.7.0 and some dependencies are known to have errors with node > 4
+This is the backend playground for using vector tiles on <a href="https://github.com/Vizzuality">GlobalFishingWatch</a>
+
+Start by installing all dependencies (npm i). This has been tested with node v4.7.0 and some dependencies are known to have errors with node > 4.
+You will also need to install <a href="https://github.com/mapbox/tippecanoe">tippecanoe</a> globally (`brew install tippecanoe` for example).
 
 # process tiles
 
+## encounters-generator
+
+--> GeoJSON --> mbtiles file
+
+This is used to prepare dummy data for the encounters layer.
+It will first generate a number of point features in a GeoJSON file, then convert it to an mbtiles file usable by the cruncher.
+
+```
+node ./encounters-generator numFeatures
+node ./encounters-generator 40000
+```
+
+Will generate a geojson then mbtiles files with 40000 points at `data/encounters`
+
+
 ## scraper
 
+custom vector tiles (pelagos) --> mbtiles file
+
+This is used to generate an mbtiles file usable by the cruncher, from the fishing activity tiles currently on production.
 This step is needed if you don't have the raw tiles locally.
 
 ```
-node ./scraper path startingZoomLevel boundingBox [getHigherZoomLevels]
-node ./scraper data 6 -17.578125,34.452218,-4.042969,44.213710
+node ./scraper name startingZoomLevel boundingBox [getHigherZoomLevels]
+node ./scraper fishing 6 -17.578125,34.452218,-4.042969,44.213710
 
 ```
-Will download tiles within `boundingBox` to `path` from `startingZoomLevel`
+Will download tiles within `boundingBox` to path at `data/[name]` from `startingZoomLevel`
 boundingBox uses the standard [w, s, e, n] format
 getHigherZoomLevels will download higher zoom levels in the bounding box
 
 
 ## cruncher (tilereduce to PBF tiles)
+
+mbtiles file --> PBF tiles
 
 The cruncher leverages `tilereduce` to allow distributing tile processing over multiple CPU cores.
 To get an idea of how it will perform for the whole tileset, you can run it with different scenarios :
@@ -25,11 +48,13 @@ To get an idea of how it will perform for the whole tileset, you can run it with
 For the moment the cruncher only supports one zoom level, but using the max zoom level available should give us a good idea on how it will perform overall. For instance, zoom 10 will get 1048576 (theoretical) tiles of the 1398096 (theoretical) tiles (z levels 2 - 10)
 
 ```
-node ./cruncher path zoomLevel boundingBox
-node ./cruncher path 6 -17.578125,34.452218,-4.042969,44.213710
+node ./cruncher encounters zoomLevel boundingBox
+node ./cruncher encounters 6 -17.578125,34.452218,-4.042969,44.213710
 ```
 
-This will generate PBF tiles in `path` from raw tiles (expected to be at `http://localhost:8010/{z},{x},{y}`).
+This will generate PBF tiles in path at `data/[name]` from raw tiles (expected to be at `http://localhost:8010/{z},{x},{y}`).
+
+Note this uses a fork of tileReduce
 
 ## cruncher (tippecanoe) (deprecated)
 
