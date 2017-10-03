@@ -3,6 +3,7 @@ This is the backend playground for using vector tiles on <a href="https://github
 Start by installing all dependencies (npm i). This has been tested with node v4.7.0 and some dependencies are known to have errors with node > 4.
 You will also need to install <a href="https://github.com/mapbox/tippecanoe">tippecanoe</a> globally (`brew install tippecanoe` for example).
 
+
 # process tiles
 
 ## encounters-generator
@@ -63,7 +64,20 @@ Convert GeoJSON data to mbtiles:
 npm run tippecanoe
 ```
 
+## inspect mbtiles files
 
+First install tilelive dependencies globally:
+```
+npm install -g tilelive-vector tilelive-xray mbtiles
+```
+
+Then run (uses tessera)
+```
+npm run mbtiles-inspect [mbtiles file path]
+npm run mbtiles-inspect mbtiles://./whatever.mbtiles
+```
+
+An inspector should be available at http://localhost:8080/
 
 # client
 

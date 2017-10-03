@@ -8,12 +8,14 @@
   "scripts": {
     "tippecanoe": "tippecanoe -o data/vessels.mbtiles data/vessels.json -f --maximum-zoom=3 --minimum-zoom=3",
     "tileserver-gl": "tileserver-gl-light -c ./tileserver-gl-config.json",
-    "tileserver-pbf": "http-server -p 9090 --cors"
+    "tileserver-pbf": "http-server -p 9090 --cors",
+    "mbtiles-inspect": "tessera -- "
   },
   "dependencies": {
     "@mapbox/tile-cover": "^3.0.2",
     "@mapbox/tile-reduce": "nerik/tile-reduce",
     "@mapbox/tilebelt": "^1.0.1",
+    "@mapbox/tilejson": "^1.1.0",
     "@mapbox/tilelive": "^5.12.6",
     "express": "^4.15.3",
     "geojson-vt": "^2.4.0",
@@ -23,6 +25,11 @@
     "mbtiles": "^0.9.0",
     "node-fetch": "^1.7.1",
     "rimraf": "^2.6.1",
+    "tessera": "^0.12.0",
+    "tilelive": "^5.12.3",
+    "tilelive-mapbox": "^0.5.0",
+    "tilelive-vector": "^3.9.4",
+    "tilelive-xray": "^0.3.0",
     "tileserver-gl-light": "^2.1.0",
     "turf-bbox-polygon": "^3.0.12",
     "turf-inside": "^3.0.12",
