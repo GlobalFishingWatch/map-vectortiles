@@ -49,7 +49,7 @@ To get an idea of how it will perform for the whole tileset, you can run it with
 For the moment the cruncher only supports one zoom level, but using the max zoom level available should give us a good idea on how it will perform overall. For instance, zoom 10 will get 1048576 (theoretical) tiles of the 1398096 (theoretical) tiles (z levels 2 - 10)
 
 ```
-node ./cruncher encounters zoomLevel boundingBox
+node ./cruncher name zoomLevel boundingBox
 node ./cruncher encounters 6 -17.578125,34.452218,-4.042969,44.213710
 ```
 
@@ -57,12 +57,6 @@ This will generate PBF tiles in path at `data/[name]` from raw tiles (expected t
 
 Note this uses a fork of tileReduce
 
-## cruncher (tippecanoe) (deprecated)
-
-Convert GeoJSON data to mbtiles:
-```
-npm run tippecanoe
-```
 
 ## inspect mbtiles files
 

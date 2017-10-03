@@ -7,7 +7,7 @@ const landmass = require('./landmass').features[0]
 var numFeatures = parseInt(process.argv[2])
 
 if (isNaN(numFeatures)) {
-  numFeatures = 4000
+  numFeatures = 40000
 }
 
 const geoJSON = {
@@ -37,8 +37,9 @@ fs.writeFileSync('./data/encounters/encounters.json', JSON.stringify(geoJSON))
 
 execSync('rm ./data/encounters/encounters.mbtiles')
 
-const tippecanoe = 'tippecanoe -o ./data/encounters/encounters.mbtiles -l encounters -zg ./data/encounters/encounters.json'
-const ex = execSync(tippecanoe);
+// const tippecanoe = 'tippecanoe -o ./data/encounters/encounters.mbtiles -l encounters -zg ./data/encounters/encounters.json'
+const tippecanoe = 'tippecanoe -o ./data/encounters/encounters.mbtiles -l encounters -z 22 ./data/encounters/encounters.json'
+const ex = execSync(tippecanoe)
 console.log(ex.toString())
 
 //

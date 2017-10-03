@@ -36,5 +36,8 @@
     "turf-point": "^2.0.1",
     "vt-pbf": "^2.1.4",
     "xmlhttprequest": "^1.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.8.0"
   }
 }
