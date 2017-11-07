@@ -2,11 +2,11 @@ const tileReduce = require('@mapbox/tile-reduce')
 const path = require('path')
 const fs = require('fs')
 
-const name = process.argv[2]
-const dest = `./data/${name}/pbf`
+const dataset = process.argv[2]
+const dest = `./data/${dataset}/pbf`
 const zoom = parseInt(process.argv[3])
 const bounds = (process.argv[4] === undefined) ? null : process.argv[4].split(',').map(i => parseInt(i))
-const mbtiles = `./data/${name}/${name}.mbtiles`
+const mbtiles = `./data/${dataset}/${dataset}.mbtiles`
 console.log(mbtiles, zoom)
 
 require('rimraf').sync(dest)
@@ -23,22 +23,24 @@ reduce()
 function reduce() {
   tileReduce({
     bbox: bounds,
-    zoom: 15,
+    zoom: 14,
     map: path.join(__dirname, '/map.js'),
     sources: [{
-      name: name,
+      dataset: dataset,
       mbtiles: mbtiles,
-      layers: [name]
+      layers: [dataset]
       // raw: true
     }],
     mapOptions: {
       dest: dest,
-      config: CONFIG[name]
+      config: CONFIG[dataset],
+      dataset: dataset
     }
   })
     .on('reduce', function(data, tile) {
+      console.log('reduce')
       console.log(data, tile)
-      console.log(data.encounters.encounters.features.length)
+      console.log(data)
       // if (tile.error) {
       //   console.log(tile.error)
       // }

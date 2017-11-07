@@ -1,7 +1,7 @@
-var vtpbf = require('vt-pbf')
-// var zlib = require('zlib');
-var geojsonvt = require('geojson-vt')
-var fs = require('fs')
+// var vtpbf = require('vt-pbf')
+// // var zlib = require('zlib');
+// var geojsonvt = require('geojson-vt')
+// var fs = require('fs')
 
 module.exports = function(data, tile, writeData, done) {
   // var x = tile[0]
@@ -14,6 +14,9 @@ module.exports = function(data, tile, writeData, done) {
   //   features: []
   // }
 
+  const dataset = global.mapOptions.dataset
+  console.log(data)
+  // const features = data[dataset][dataset].features
   done(null, data)
 
   // try {

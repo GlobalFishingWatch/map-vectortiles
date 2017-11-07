@@ -29,11 +29,11 @@ This is used to generate an mbtiles file usable by the cruncher, from the fishin
 This step is needed if you don't have the raw tiles locally.
 
 ```
-node ./scraper name startingZoomLevel boundingBox [getHigherZoomLevels]
+node ./scraper dataset startingZoomLevel boundingBox [getHigherZoomLevels]
 node ./scraper fishing 6 -17.578125,34.452218,-4.042969,44.213710
 
 ```
-Will download tiles within `boundingBox` to path at `data/[name]` from `startingZoomLevel`
+Will download tiles within `boundingBox` to path at `data/[dataset]` from `startingZoomLevel`
 boundingBox uses the standard [w, s, e, n] format
 getHigherZoomLevels will download higher zoom levels in the bounding box
 
@@ -49,11 +49,11 @@ To get an idea of how it will perform for the whole tileset, you can run it with
 For the moment the cruncher only supports one zoom level, but using the max zoom level available should give us a good idea on how it will perform overall. For instance, zoom 10 will get 1048576 (theoretical) tiles of the 1398096 (theoretical) tiles (z levels 2 - 10)
 
 ```
-node ./cruncher name zoomLevel boundingBox
+node ./cruncher dataset zoomLevel boundingBox
 node ./cruncher encounters 6 -17.578125,34.452218,-4.042969,44.213710
 ```
 
-This will generate PBF tiles in path at `data/[name]` from raw tiles (expected to be at `http://localhost:8010/{z},{x},{y}`).
+This will generate PBF tiles in path at `data/[dataset]` from raw tiles (expected to be at `http://localhost:8010/{z},{x},{y}`).
 
 Note this uses a fork of tileReduce
 
