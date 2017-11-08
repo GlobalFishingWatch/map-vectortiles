@@ -9,6 +9,7 @@
     "tippecanoe": "tippecanoe -o data/vessels.mbtiles data/vessels.json -f --maximum-zoom=3 --minimum-zoom=3",
     "tileserver-gl": "tileserver-gl-light -c ./tileserver-gl-config.json",
     "tileserver-pbf": "http-server -p 9090 --cors",
+    "tileserver-pbf-encounters": "http-server data/encounters -p 9090 --cors=Authorization",
     "mbtiles-inspect": "tessera -- "
   },
   "dependencies": {

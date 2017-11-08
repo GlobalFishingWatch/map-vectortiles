@@ -49,8 +49,8 @@ To get an idea of how it will perform for the whole tileset, you can run it with
 For the moment the cruncher only supports one zoom level, but using the max zoom level available should give us a good idea on how it will perform overall. For instance, zoom 10 will get 1048576 (theoretical) tiles of the 1398096 (theoretical) tiles (z levels 2 - 10)
 
 ```
-node ./cruncher dataset zoomLevel boundingBox
-node ./cruncher encounters 6 -17.578125,34.452218,-4.042969,44.213710
+node ./cruncher dataset
+node ./cruncher encounters
 ```
 
 This will generate PBF tiles in path at `data/[dataset]` from raw tiles (expected to be at `http://localhost:8010/{z},{x},{y}`).
@@ -89,7 +89,8 @@ https://github.com/Vizzuality/GlobalFishingWatch/pull/632/files?diff=unified#dif
 ## PBF tiles
 
 ```
-npm run tilserver-pbf
+npm run tileserver-pbf
+npm run tileserver-pbf-encounters
 ```
 
 Will start a simple http-server with CORS headers turned on on port 9090.

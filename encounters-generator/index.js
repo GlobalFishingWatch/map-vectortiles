@@ -5,9 +5,13 @@ const turfpoint = require('turf-point')
 const landmass = require('./landmass').features[0]
 
 var numFeatures = parseInt(process.argv[2])
-
 if (isNaN(numFeatures)) {
   numFeatures = 40000
+}
+
+var maxZoom = parseInt(process.argv[3])
+if (isNaN(maxZoom)) {
+  maxZoom = 14
 }
 
 const geoJSON = {
@@ -33,8 +37,13 @@ while (geoJSON.features.length < numFeatures) {
   })
 }
 
-fs.writeFileSync('./data/encounters/encounters.json', JSON.stringify(geoJSON))
+const path = './data/encounters/data'
+
+execSync(`rm ${path}/encounters.mbtiles`)
+
+fs.writeFileSync(`${path}/encounters.json`, JSON.stringify(geoJSON))
 // --drop-rate=0 : do not try to reduce the number of features at x levels below --maximum-zoom
-const tippecanoe = 'tippecanoe -o ./data/encounters/encounters.mbtiles --force --layer encounters --maximum-zoom=14 --minimum-zoom=2 --no-feature-limit --no-tile-size-limit --drop-rate=0 ./data/encounters/encounters.json'
+const tippecanoe = `tippecanoe -o ${path}/encounters.mbtiles -l encounters --maximum-zoom=${maxZoom} --minimum-zoom=2 --no-feature-limit --no-tile-size-limit --drop-rate=0 ${path}/encounters.json`
+console.log(tippecanoe)
 const ex = execSync(tippecanoe)
 console.log(ex.toString())
