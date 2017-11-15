@@ -1,6 +1,11 @@
 {
   "temporalExtentsLess": true,
   "isPBF": true,
+  "rendering": {
+    "style": "bullseye",
+    "defaultSize": 16,
+    "defaultOpacity": 1
+  },
   "filters": [
     {
       "field": "category",
@@ -34,12 +39,7 @@
     }
   },
   "reports": {},
-  "temporalExtents": [
-    [
-      1325376000000,
-      1514764800000
-    ]
-  ],
+  "temporalExtents": [],
   "maxZoom": 10,
   "urls": {
     "default": [
