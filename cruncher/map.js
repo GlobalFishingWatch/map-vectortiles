@@ -20,8 +20,8 @@ module.exports = function(data, tile, writeData, done) {
   try {
     var tileIndex = geojsonvt(geoJson)
     var tileData = tileIndex.getTile(z, x, y)
-  //   // // var pbfout = zlib.gzipSync(vtpbf.fromGeojsonVt({ 'vessels': tileData }));
-    var pbfout = vtpbf.fromGeojsonVt({ 'vessels': tileData })
+    // var pbfout = zlib.gzipSync(vtpbf.fromGeojsonVt({ 'vessels': tileData }));
+    var pbfout = vtpbf.fromGeojsonVt({ points: tileData })
     fs.writeFileSync(global.mapOptions.dest + '/' + z + ',' + x + ',' + y, pbfout)
     done(null, geoJson)
   } catch(e) {
