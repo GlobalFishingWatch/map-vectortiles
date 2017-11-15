@@ -1,6 +1,6 @@
 This is the backend playground for using vector tiles on <a href="https://github.com/Vizzuality">GlobalFishingWatch</a>
 
-Start by installing all dependencies (npm i). This has been tested with node v4.7.0 and some dependencies are known to have errors with node > 4.
+Start by installing all dependencies (npm i). **This has been tested with node v4.7.0 and some dependencies are known to have errors with node > 4. Use a node version manager, ie `nvm use 4`**.
 You will also need to install <a href="https://github.com/mapbox/tippecanoe">tippecanoe</a> globally (`brew install tippecanoe` for example).
 
 
