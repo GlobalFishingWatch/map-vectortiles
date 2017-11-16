@@ -4,8 +4,6 @@ const fs = require('fs')
 
 const dataset = process.argv[2]
 const dest = `./data/${dataset}/data/pbf`
-// const zoom = parseInt(process.argv[3])
-const bounds = (process.argv[4] === undefined) ? null : process.argv[4].split(',').map(i => parseInt(i))
 const mbtiles = `./data/${dataset}/data/${dataset}.mbtiles`
 
 require('rimraf').sync(dest)
@@ -28,7 +26,6 @@ reduce()
 
 function reduce() {
   tileReduce({
-    bbox: bounds,
     map: path.join(__dirname, '/map.js'),
     sources: [{
       name: dataset,

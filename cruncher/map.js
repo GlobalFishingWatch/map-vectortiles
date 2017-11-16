@@ -10,14 +10,16 @@ var convertTile = function(geoJson, z, convertFields) {
       feature.properties.timeIndex = convert.getOffsetedTimeAtPrecision(feature.properties.datetime)
       delete feature.properties.datetime
     }
-    // TODO the following fields will need to be stored as integers + handle quantization factor for each z level
-    // because storing floats in PBF tiles is highly inefficient
     if (convertFields.latlon) {
       var world = convert.latLonToWorldCoordinates(feature.geometry.coordinates[1], feature.geometry.coordinates[0])
       feature.properties.worldX = world.worldX
       feature.properties.worldY = world.worldY
     }
     // TODO add sigma/radius and weight/opacity for the vessels heatmap layer
+    // TODO the following fields might need to be stored as integers + handle quantization factor
+    // because storing floats in PBF tiles is inefficient (tiles are heavier than they should).
+    // The quantization logic and constant values should be in the globalfishingwatch-convert repo,
+    // as this will be needed here as well as from the client.
   })
   return geoJson
 }
