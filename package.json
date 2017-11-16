@@ -20,6 +20,7 @@
     "@mapbox/tilelive": "^5.12.6",
     "express": "^4.15.3",
     "geojson-vt": "^2.4.0",
+    "globalfishingwatch-convert": "git+ssh://git@github.com/Vizzuality/GlobalFishingWatch-convert.git",
     "http-server": "^0.10.0",
     "lodash": "^4.17.4",
     "mapbox-gl": "^0.38.0",

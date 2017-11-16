@@ -11,9 +11,16 @@ const mbtiles = `./data/${dataset}/data/${dataset}.mbtiles`
 require('rimraf').sync(dest)
 fs.mkdirSync(dest)
 
+/*
+Precompute attributes for faster tile conversion on the client
+datetime -> timeIndex
+latlon -> worldY/worldX
+sigma -> radius
+weight -> opacity
+*/
 const CONFIG = {
   encounters: {
-    fields: ['worldCoordinates', 'datetime']
+    convertFields: {datetime: true, latlon: true}
   }
 }
 
@@ -35,8 +42,8 @@ function reduce() {
     }
   })
     .on('reduce', function(data, tile) {
-      console.log('reduce')
-      console.log(tile)
+      // console.log('reduce')
+      // console.log(tile)
 
       // if (tile.error) {
       //   console.log(tile.error)

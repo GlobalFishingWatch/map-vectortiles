@@ -19,23 +19,14 @@
     "encounterId": {
       "type": "Float32"
     },
-    "longitude": {
-      "max": null,
-      "hidden": true,
-      "type": "Float32",
-      "min": null
+    "timeIndex": {
+      "type": "Float32"
     },
-    "datetime": {
-      "max": 1509753600000,
-      "hidden": true,
-      "type": "Float32",
-      "min": 1325376000000
+    "worldX": {
+      "type": "Float32"
     },
-    "latitude": {
-      "max": null,
-      "hidden": true,
-      "type": "Float32",
-      "min": null
+    "worldY": {
+      "type": "Float32"
     }
   },
   "reports": {},
