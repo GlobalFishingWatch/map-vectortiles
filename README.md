@@ -1,54 +1,75 @@
-Start by installing all dependencies (npm i). This has been tested with node v4.7.0 and some dependencies are known to have errors with node > 4
+This is the backend playground for using vector tiles on <a href="https://github.com/Vizzuality">GlobalFishingWatch</a>
+
+Start by installing all dependencies (npm i). **This has been tested with node v4.7.0 and some dependencies are known to have errors with node > 4. Use a node version manager, ie `nvm use 4`**.
+You will also need to install <a href="https://github.com/mapbox/tippecanoe">tippecanoe</a> globally (`brew install tippecanoe` for example).
+
 
 # process tiles
 
+## encounters-generator
+
+--> GeoJSON --> mbtiles
+
+This is used to prepare dummy data for the encounters layer.
+It will first generate a number of point features in a GeoJSON file, then convert it to an mbtiles file (SQLite database) usable by the cruncher.
+
+```
+node ./encounters-generator [numFeatures] [maxZoom]
+node ./encounters-generator 40000 14
+```
+
+Will generate a geojson file, then a mbtiles files with 40000 points, for zoom levels 2 to 14 at `data/encounters/data`
+
+## cruncher (tilereduce to PBF tiles)
+
+mbtiles --> PBF tiles
+
+The cruncher leverages `tilereduce` to allow distributing tile processing over multiple CPU cores. Currently it only takes an mbtiles file as input, but it could support individual tiles files. The cruncher will take all points from the input, convert point properties for efficient rendering (eg sigma and weight to precomputed radius and opacity), and pack them into PBF tiles ready to be consumed by the client. The tiles are generated at zoom levels from input data (`maxZoom`) if generated from `encounters-generator`.
+
+```
+node ./cruncher [dataset]
+node ./cruncher encounters
+```
+
+This will generate PBF tiles in path at `data/encounters/data/PBF` from raw tiles (expected to be served from `http://localhost:9090/{z},{x},{y}`).
+
 ## scraper
 
-This step is needed if you don't have the raw tiles locally.
+custom vector tiles (pelagos) --> mbtiles file
+
+This is intended to experiment using vector tiles with the the "raw" fishing activity tiles currently on production. It should generate an mbtiles file usable by the cruncher, from the fishing activity tiles currently on production. The code, currently, generates individual raw tiles rather than a single mbtiles file and so needs to be revised (also, decoding Pelagos tiles is not implemented, code used on the client should be reused here).
 
 ```
-node ./scraper path startingZoomLevel boundingBox [getHigherZoomLevels]
-node ./scraper data 6 -17.578125,34.452218,-4.042969,44.213710
+node ./scraper dataset startingZoomLevel boundingBox [getHigherZoomLevels]
+node ./scraper fishing 6 -17.578125,34.452218,-4.042969,44.213710
 
 ```
-Will download tiles within `boundingBox` to `path` from `startingZoomLevel`
+Will download tiles within `boundingBox` to path at `data/[dataset]` from `startingZoomLevel`
 boundingBox uses the standard [w, s, e, n] format
 getHigherZoomLevels will download higher zoom levels in the bounding box
 
 
-## cruncher (tilereduce to PBF tiles)
+## inspect mbtiles files
 
-The cruncher leverages `tilereduce` to allow distributing tile processing over multiple CPU cores.
-To get an idea of how it will perform for the whole tileset, you can run it with different scenarios :
-- run it on a small bounding box
-- then run it on the whole planet (-179, -89, 179, 89)
-For the moment the cruncher only supports one zoom level, but using the max zoom level available should give us a good idea on how it will perform overall. For instance, zoom 10 will get 1048576 (theoretical) tiles of the 1398096 (theoretical) tiles (z levels 2 - 10)
-
+First install tilelive dependencies globally:
 ```
-node ./cruncher path zoomLevel boundingBox
-node ./cruncher path 6 -17.578125,34.452218,-4.042969,44.213710
+npm install -g tilelive-vector tilelive-xray mbtiles
 ```
 
-This will generate PBF tiles in `path` from raw tiles (expected to be at `http://localhost:8010/{z},{x},{y}`).
-
-## cruncher (tippecanoe) (deprecated)
-
-Convert GeoJSON data to mbtiles:
+Then run (uses tessera)
 ```
-npm run tippecanoe
+npm run mbtiles-inspect [mbtiles file path]
+npm run mbtiles-inspect mbtiles://./whatever.mbtiles
 ```
 
-
+An inspector should be available at http://localhost:8080/
 
 # client
 
-Use this branch https://github.com/Vizzuality/GlobalFishingWatch/pull/632
-
-Switch from normal tiles to PBF tiles by setting VECTOR to true:
-https://github.com/Vizzuality/GlobalFishingWatch/pull/632/files?diff=unified#diff-507d1cdbdb4b2ccffcfc78aae71f57eaR4
-
-Change tile server URL schema in VectorTile.js:
-https://github.com/Vizzuality/GlobalFishingWatch/pull/632/files?diff=unified#diff-cfce8bd2e1e0bfe899c82e36d1f7a67fR14
+See
+https://github.com/Vizzuality/GlobalFishingWatch/pull/842
+and
+https://github.com/Vizzuality/GlobalFishingWatch/pull/632
 
 
 # tile servers
@@ -56,7 +77,8 @@ https://github.com/Vizzuality/GlobalFishingWatch/pull/632/files?diff=unified#dif
 ## PBF tiles
 
 ```
-npm run tilserver-pbf
+npm run tileserver-pbf
+npm run tileserver-pbf-encounters
 ```
 
 Will start a simple http-server with CORS headers turned on on port 9090.

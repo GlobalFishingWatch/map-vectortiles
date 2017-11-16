@@ -1,0 +1,95 @@
+{
+  "isPBF": true,
+  "rendering": {
+    "style": "bullseye",
+    "defaultSize": 16,
+    "defaultOpacity": 1
+  },
+  "temporalExtents": null,
+  "filters": [
+    {
+      "field": "category",
+      "id": "flag",
+      "useDefaultValues": true,
+      "label": "Country"
+    }
+  ],
+  "tilesetName": "encounters",
+  "colsByName": {
+    "encounterId": {
+      "type": "Float32"
+    },
+    "timeIndex": {
+      "type": "Float32"
+    },
+    "worldX": {
+      "type": "Float32"
+    },
+    "worldY": {
+      "type": "Float32"
+    }
+  },
+  "reports": {},
+  "maxZoom": 10,
+  "urls": {
+    "default": [
+      [
+        "http://127.0.0.1:9090/data/pbf"
+      ]
+    ]
+  },
+  "vesselFields": [
+    {
+      "id": "vesselname",
+      "display": "Name",
+      "titlePriority": 1
+    },
+    {
+      "id": "vesselclass",
+      "display": "Class",
+      "kind": "vesselClass"
+    },
+    {
+      "id": "flag",
+      "display": "Flag",
+      "kind": "flag",
+      "anonymous": true
+    },
+    {
+      "id": "imo",
+      "display": "IMO",
+      "titlePriority": 3,
+      "kind": "prefixedCSVMultiLink",
+      "prefix": "http://www.marinetraffic.com/ais/details/ships/imo:"
+    },
+    {
+      "id": "mmsi",
+      "display": "MMSI",
+      "titlePriority": 4,
+      "kind": "prefixedCSVMultiLink",
+      "prefix": "https://www.marinetraffic.com/en/ais/details/ships/"
+    },
+    {
+      "id": "seriesgroup",
+      "display": false,
+      "anonymous": true
+    },
+    {
+      "id": "series",
+      "display": false,
+      "anonymous": true
+    },
+    {
+      "id": "callsign",
+      "display": "Callsign",
+      "titlePriority": 2
+    },
+    {
+      "id": "rfmo_registry_info",
+      "display": "RFMO registrations",
+      "kind": "objectArrayMultiLink",
+      "multiLinkUrlField": "url",
+      "multiLinkValueField": "rfmo"
+    }
+  ]
+}
