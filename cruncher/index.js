@@ -36,7 +36,7 @@ function reduce() {
   })
     .on('reduce', function(data, tile) {
       console.log('reduce')
-      console.log(data, tile)
+      console.log(tile)
 
       // if (tile.error) {
       //   console.log(tile.error)

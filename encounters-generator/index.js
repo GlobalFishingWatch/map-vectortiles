@@ -23,6 +23,8 @@ const geoJSON = {
   'features': []
 }
 
+var i = 0
+
 while (geoJSON.features.length < numFeatures) {
   var randomLat = (180 * Math.random()) - 90
   var randomLng = (360 * Math.random()) - 180
@@ -32,7 +34,8 @@ while (geoJSON.features.length < numFeatures) {
   geoJSON.features.push({
     'type': 'Feature',
     'properties': {
-      datetime: randomDatetime
+      datetime: randomDatetime,
+      encounterId: i++
     },
     'geometry': {
       'type': 'Point',
