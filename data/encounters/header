@@ -2,7 +2,7 @@
   "isPBF": true,
   "rendering": {
     "style": "bullseye",
-    "defaultSize": 16,
+    "defaultSize": 1,
     "defaultOpacity": 1
   },
   "temporalExtents": null,
@@ -29,7 +29,6 @@
       "type": "Float32"
     }
   },
-  "reports": {},
   "maxZoom": 10,
   "urls": {
     "default": [

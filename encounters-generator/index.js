@@ -14,7 +14,7 @@ if (isNaN(maxZoom)) {
   maxZoom = 14
 }
 
-var DATE_START = new Date(2016,0,1).getTime()
+var DATE_START = new Date(2012,0,1).getTime()
 var DATE_END = new Date(2016,11,31).getTime()
 var dateInterval = DATE_END - DATE_START
 
@@ -35,7 +35,7 @@ while (geoJSON.features.length < numFeatures) {
     'type': 'Feature',
     'properties': {
       datetime: randomDatetime,
-      encounterId: i++
+      series: i++
     },
     'geometry': {
       'type': 'Point',
