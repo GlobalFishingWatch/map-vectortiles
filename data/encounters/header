@@ -16,7 +16,7 @@
   ],
   "tilesetName": "encounters",
   "colsByName": {
-    "encounterId": {
+    "series": {
       "type": "Float32"
     },
     "timeIndex": {

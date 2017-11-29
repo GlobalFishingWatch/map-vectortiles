@@ -6,7 +6,28 @@ You will also need to install <a href="https://github.com/mapbox/tippecanoe">tip
 
 # process tiles
 
-## encounters-generator
+## encounters conversion (real data)
+
+--> GeoJSON --> mbtiles
+
+This is used to compile the encounters GeoJSON into an mbtiles (to feed further PBF tiles generation by the [cruncher](https://github.com/Vizzuality/GlobalFishingWatch-vector#cruncher-tilereduce-to-pbf-tiles))
+
+```
+node ./encounters-generator/convert.js [geoJSONFile]
+node ./encounters-generator/convert.js data/encounters/encounters_2017_11_29.geojson
+```
+
+Note: the data originally provided as CSV has been converted to GeoJSON from the Skytruth CartoDB instance (private table) (http://cartodb.skytruth.org/user/erikescoffier/tables/table_2017_11_29_encounters_likely_for_vizz_no_vessel/table) with the following SQL:
+```
+SELECT
+the_geom,
+('encounters' || cartodb_id) as series,
+(CAST (event_duration_hr as DOUBLE PRECISION))*60*60 *1000 as duration,
+EXTRACT(EPOCH FROM CAST (start_time AS DATE))*1000 as datetime
+FROM table_2017_11_29_encounters_likely_for_vizz_no_vessel
+```
+
+## encounters-generator (fake data)
 
 --> GeoJSON --> mbtiles
 
