@@ -22,15 +22,32 @@
     "timeIndex": {
       "type": "Float32"
     },
+    "datetime": {
+      "type": "Float32"
+    },
     "worldX": {
       "type": "Float32"
     },
+    "duration": {
+      "type": "Float32"
+    },
     "worldY": {
+      "type": "Float32"
+    },
+    "median_distance_km": {
+      "type": "Float32"
+    },
+    "median_speed_knots": {
       "type": "Float32"
     }
   },
   "maxZoom": 10,
   "urls": {
+    "info": [
+      [
+        "http://cartodb.skytruth.org/user/erikescoffier/api/v2/sql?q=SELECT+*+FROM+encounters_20180111+WHERE+series+%3D+%27$SERIES%27&format=json"
+      ]
+     ],
     "default": [
       [
         "http://127.0.0.1:9090/data/pbf"

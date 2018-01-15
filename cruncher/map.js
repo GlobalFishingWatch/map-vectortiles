@@ -8,7 +8,6 @@ var convertTile = function(geoJson, z, convertFields) {
   geoJson.features.forEach(function(feature) {
     if (convertFields.datetime) {
       feature.properties.timeIndex = convert.getOffsetedTimeAtPrecision(feature.properties.datetime)
-      delete feature.properties.datetime
     }
     if (convertFields.latlon) {
       var world = convert.latLonToWorldCoordinates(feature.geometry.coordinates[1], feature.geometry.coordinates[0])
