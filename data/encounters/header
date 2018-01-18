@@ -42,6 +42,7 @@
     }
   },
   "maxZoom": 10,
+  "preserveUrls": true,
   "urls": {
     "info": [
       [
