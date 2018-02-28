@@ -3,5 +3,6 @@ node_modules
 npm-debug.log
 data/tiles
 data/rawTiles
-data/encounters/data
+data/encounters/data/encounters.mbtiles
+data/encounters/data/pbf
 .idea

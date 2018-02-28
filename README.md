@@ -10,34 +10,25 @@ You will also need to install <a href="https://github.com/mapbox/tippecanoe">tip
 
 --> GeoJSON --> mbtiles
 
-This is used to compile the encounters GeoJSON into an mbtiles (to feed further PBF tiles generation by the [cruncher](https://github.com/Vizzuality/GlobalFishingWatch-vector#cruncher-tilereduce-to-pbf-tiles))
+This is used to compile the encounters CSV into an mbtiles (to feed further PBF tiles generation by the [cruncher](https://github.com/Vizzuality/GlobalFishingWatch-vector#cruncher-tilereduce-to-pbf-tiles))
 
 ```
-node ./encounters-generator/convert.js [geoJSONFile]
-node ./encounters-generator/convert.js data/encounters/encounters_2017_11_29.geojson
+node ./encounters-convert [CSVFile]
+node ./encounters-convert data/encounters/encounters_20180111.csv
 ```
 
-Note: the data originally provided as CSV has been converted to GeoJSON from the Skytruth CartoDB instance (private table) (http://cartodb.skytruth.org/user/erikescoffier/tables/table_2017_11_29_encounters_likely_for_vizz_no_vessel/table) with the following SQL:
+Note: the data originally provided as CSV has been altered on a CartoDB instance using the following SQL:
 ```
 SELECT
 the_geom,
 ('encounters' || cartodb_id) as series,
 (CAST (event_duration_hr as DOUBLE PRECISION))*60*60 *1000 as duration,
 EXTRACT(EPOCH FROM CAST (start_time AS DATE))*1000 as datetime
-FROM table_2017_11_29_encounters_likely_for_vizz_no_vessel
+FROM encounters_20180111
 ```
 
-## encounters-generator (fake data)
+(see http://cartodb.skytruth.org/user/erikescoffier/tables/encounters_20180111)
 
---> GeoJSON --> mbtiles
-
-This is used to prepare dummy data for the encounters layer.
-It will first generate a number of point features in a GeoJSON file, then convert it to an mbtiles file (SQLite database) usable by the cruncher.
-
-```
-node ./encounters-generator [numFeatures] [maxZoom]
-node ./encounters-generator 40000 14
-```
 
 Will generate a geojson file, then a mbtiles files with 40000 points, for zoom levels 2 to 14 at `data/encounters/data`
 
@@ -53,6 +44,19 @@ node ./cruncher encounters
 ```
 
 This will generate PBF tiles in path at `data/encounters/data/PBF` from raw tiles (expected to be served from `http://localhost:9090/{z},{x},{y}`).
+
+
+## encounters-generator (fake data)
+
+--> GeoJSON --> mbtiles
+
+This is used to prepare dummy data for the encounters layer.
+It will first generate a number of point features in a GeoJSON file, then convert it to an mbtiles file (SQLite database) usable by the cruncher.
+
+```
+node ./encounters-generator [numFeatures] [maxZoom]
+node ./encounters-generator 40000 14
+```
 
 ## scraper
 
