@@ -12,13 +12,14 @@ fs.mkdirSync(dest)
 /*
 Precompute attributes for faster tile conversion on the client
 datetime -> timeIndex
+start_time -> timeIndex
 latlon -> worldY/worldX
 sigma -> radius
 weight -> opacity
 */
 const CONFIG = {
   encounters: {
-    convertFields: {datetime: true, latlon: true}
+    convertFields: {start_time: true, latlon: true}
   }
 }
 

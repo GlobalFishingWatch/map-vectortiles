@@ -16,19 +16,13 @@
   ],
   "tilesetName": "encounters",
   "colsByName": {
-    "series": {
+    "id": {
       "type": "Float32"
     },
     "timeIndex": {
       "type": "Float32"
     },
-    "datetime": {
-      "type": "Float32"
-    },
     "worldX": {
-      "type": "Float32"
-    },
-    "duration": {
       "type": "Float32"
     },
     "worldY": {
@@ -43,17 +37,11 @@
   },
   "maxZoom": 10,
   "preserveUrls": true,
-  "urls": {
-    "info": [
-      [
-        "http://cartodb.skytruth.org/user/erikescoffier/api/v2/sql?q=SELECT+*+FROM+encounters_20180111+WHERE+series+%3D+%27$SERIES%27&format=json"
-      ]
-     ],
-    "default": [
-      [
-        "http://127.0.0.1:9090/data/pbf"
-      ]
-    ]
+  "endpoints":{
+    "tiles":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/{{z}},{{x}},{{y}}",
+    "tracks":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/sub/seriesgroup={{id}}/0,0,0",
+    "info":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/sub/seriesgroup={{id}}/info",
+    "search":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/search/?query={{query}}&limit={{limit}}&offset={{offset}}"
   },
   "vesselFields": []
 }

@@ -9,6 +9,10 @@ var convertTile = function(geoJson, z, convertFields) {
     if (convertFields.datetime) {
       feature.properties.timeIndex = convert.getOffsetedTimeAtPrecision(feature.properties.datetime)
     }
+    if (convertFields.start_time) {
+      const datetime = (new Date(feature.properties.start_time)).getTime()
+      feature.properties.timeIndex = convert.getOffsetedTimeAtPrecision(datetime)
+    }
     if (convertFields.latlon) {
       var world = convert.latLonToWorldCoordinates(feature.geometry.coordinates[1], feature.geometry.coordinates[0])
       feature.properties.worldX = world.worldX
