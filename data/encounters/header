@@ -38,7 +38,7 @@
   "maxZoom": 10,
   "preserveUrls": true,
   "endpoints":{
-    "tiles":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/{{z}},{{x}},{{y}}",
+    "tiles":"http://127.0.0.1:9090/data/pbf/{{z}},{{x}},{{y}}",
     "tracks":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/sub/seriesgroup={{id}}/0,0,0",
     "info":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/sub/seriesgroup={{id}}/info",
     "search":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/search/?query={{query}}&limit={{limit}}&offset={{offset}}"
