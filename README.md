@@ -6,6 +6,29 @@ You will also need to install <a href="https://github.com/mapbox/tippecanoe">tip
 
 # process tiles
 
+## MPA scraping + mbtiles
+
+Get MPA data from Protected Planet. 
+
+First set up token: `cp MPA/token.sample.json token.json`, then fill in the token.
+
+Run the scraper to get paginated data (filtered for only marine areas) from the <a href="https://api.protectedplanet.net/documentation#get-v3protectedareas">API</a>
+
+```
+node MPA/scraper
+```
+
+The API can be unstable. If some pages fail to load, run the scraper again. It will only load the missing pages.
+
+Turn the paginated data to a GeoJSON file, then an mbtiles file:
+
+```
+node MPA
+```
+
+All data ends up in data/MPA/out. The generated mbtiles can be manually uploaded to Mapbox.
+
+
 ## encounters conversion (real data)
 
 --> GeoJSON --> mbtiles

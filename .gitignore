@@ -5,4 +5,8 @@ data/tiles
 data/rawTiles
 data/encounters/data/encounters.mbtiles
 data/encounters/data/pbf
+data/polygon-layers/in/**
+data/polygon-layers/mpa.mbtiles
+data/polygon-layers/eez.mbtiles
+polygon-layers/token.json
 .idea
