@@ -14,6 +14,7 @@ var convertTile = function(geoJson, z, convertFields) {
       feature.properties.timeIndex = convert.getOffsetedTimeAtPrecision(datetime)
     }
     if (convertFields.latlon) {
+      // FIXME: use viewport-mercator-project to compute the right coordinates
       var world = convert.latLonToWorldCoordinates(feature.geometry.coordinates[1], feature.geometry.coordinates[0])
       feature.properties.worldX = world.worldX
       feature.properties.worldY = world.worldY

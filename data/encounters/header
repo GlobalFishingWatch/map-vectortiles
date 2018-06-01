@@ -33,6 +33,30 @@
     },
     "median_speed_knots": {
       "type": "Float32"
+    },
+    "vessel_1_information": {
+      "type": "String"
+    },
+    "vessel_2_information": {
+      "type": "String"
+    },
+    "vessel_1_type": {
+      "type": "String"
+    },
+    "vessel_2_type": {
+      "type": "String"
+    },
+    "vessel_1_id": {
+      "type": "String"
+    },
+    "vessel_2_id": {
+      "type": "String"
+    },
+    "vessel_1_tileset": {
+      "type": "String"
+    },
+    "vessel_2_tileset": {
+      "type": "String"
     }
   },
   "maxZoom": 10,
@@ -40,7 +64,7 @@
   "endpoints":{
     "tiles":"http://127.0.0.1:9090/data/pbf/{{z}},{{x}},{{y}}",
     "tracks":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/sub/seriesgroup={{id}}/0,0,0",
-    "info":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/sub/seriesgroup={{id}}/info",
+    "info":"https://api-dot-world-fishing-827.appspot.com/v2/tilesets/vizz-generated-encounters-pbf-v2/sub/seriesgroup={{id}}/info",
     "search":"https://api-dot-skytruth-pleuston.appspot.com/v2/tilesets/encounters-layer-pbf-v1/search/?query={{query}}&limit={{limit}}&offset={{offset}}"
   },
   "vesselFields": []
