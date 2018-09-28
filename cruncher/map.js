@@ -2,7 +2,7 @@ var vtpbf = require('vt-pbf')
 // var zlib = require('zlib');
 var geojsonvt = require('geojson-vt')
 var fs = require('fs')
-var convert = require('globalfishingwatch-convert')
+var convert = require('@globalfishingwatch/map-convert')
 
 var convertTile = function(geoJson, z, convertFields) {
   geoJson.features.forEach(function(feature) {

@@ -21,7 +21,7 @@
     "csv2geojson": "^5.0.2",
     "express": "^4.15.3",
     "geojson-vt": "^2.4.0",
-    "globalfishingwatch-convert": "git+ssh://git@github.com/Vizzuality/GlobalFishingWatch-convert.git",
+    "@globalfishingwatch/map-convert": "github:GlobalFishingWatch/map-convert",
     "http-server": "^0.10.0",
     "lodash": "^4.17.4",
     "mapbox-gl": "^0.38.0",
