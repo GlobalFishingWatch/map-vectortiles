@@ -47,16 +47,18 @@ node ./cruncher encounters
 This will generate PBF tiles in path at `data/encounters/data/PBF` from raw tiles (expected to be served from `http://localhost:9090/{z},{x},{y}`).
 
 
-## encounters-generator (fake data)
+## points-generator (dummy data)
 
 --> GeoJSON --> mbtiles
 
-This is used to prepare dummy data for the encounters layer.
-It will first generate a number of point features in a GeoJSON file, then convert it to an mbtiles file (SQLite database) usable by the cruncher.
+This is used to prepare dummy data for the encounters and events layer for testing purposes.
+It will first generate a number of point features (avoiding landmass for a slightly more realistic effect), in a GeoJSON file, then convert it to an mbtiles file (SQLite database). Each point has a random `datetime` timestamp property, as well as a random `type` ranging from 0 to 4.
+
+The generated mbtiles file can then be used by the cruncher to generate individual PBF tiles.
 
 ```
-node ./encounters-generator [numFeatures] [maxZoom]
-node ./encounters-generator 40000 14
+node ./points-generator [dataset] [numFeatures] [maxZoom]
+node ./points-generator events 40000 14
 ```
 
 ## scraper
