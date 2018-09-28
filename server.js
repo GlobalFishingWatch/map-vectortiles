@@ -4,8 +4,10 @@ const http = require('http');
 require('@mapbox/mbtiles').registerProtocols(tilelive);
 // require("tilelive-modules/loader")(tilelive);
 
-const mbtileFile = process.argv.length >= 3 ? process.argv[2] : 'data/vessels.mbtiles';
+const mbtileFile = process.argv.length >= 3 ? process.argv[2] : 'data/vessels.mbtiles'
 console.log(`loading ${mbtileFile}`)
+
+const port = process.argv.length >= 4 ? parseInt(process.argv[3]) : 7070
 
 tilelive.load(`mbtiles://./${mbtileFile}`, function(err, source) {
   if (err) {
@@ -13,7 +15,7 @@ tilelive.load(`mbtiles://./${mbtileFile}`, function(err, source) {
     throw err;
   }
 
-  app.set('port', 7070);
+  app.set('port', port);
 
   app.use(function(req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

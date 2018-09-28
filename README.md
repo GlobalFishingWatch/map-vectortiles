@@ -58,7 +58,10 @@ The generated mbtiles file can then be used by the cruncher to generate individu
 ```
 node ./points-generator [dataset] [numFeatures] [maxZoom]
 node ./points-generator events 40000 14
+node  --max-old-space-size=8192 ./points-generator events 10000000 14
 ```
+
+
 
 ## scraper
 
