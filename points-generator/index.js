@@ -1,7 +1,7 @@
 const fs = require('fs')
 const execSync = require('child_process').execSync
-const turfinside = require('turf-inside')
-const turfpoint = require('turf-point')
+const turfinside = require('@turf/inside')
+const turfhelpers = require('@turf/helpers')
 const landmass = require('./landmass').features[0]
 
 const dataset = process.argv[2]
@@ -32,7 +32,7 @@ while (geoJSON.features.length < numFeatures) {
   var randomLat = (180 * Math.random()) - 90
   var randomLng = (360 * Math.random()) - 180
   var randomDatetime = DATE_START + Math.floor(dateInterval * Math.random())
-  var pt = turfpoint([randomLng, randomLat])
+  var pt = turfhelpers.point([randomLng, randomLat])
   if (turfinside(pt, landmass)) continue
   geoJSON.features.push({
     'type': 'Feature',
@@ -51,11 +51,11 @@ while (geoJSON.features.length < numFeatures) {
   })
 }
 
-execSync(`rm -f ${path}/tiles.mbtiles`)
+execSync(`rm -f ${path}/data/${dataset}.mbtiles`)
 
-fs.writeFileSync(`${path}/tiles.json`, JSON.stringify(geoJSON))
+fs.writeFileSync(`${path}/data/${dataset}.json`, JSON.stringify(geoJSON))
 // --drop-rate=0 : do not try to reduce the number of features at x levels below --maximum-zoom
-const tippecanoe = `tippecanoe -o ${path}/tiles.mbtiles -l encounters --maximum-zoom=${maxZoom} --minimum-zoom=2 --no-feature-limit --no-tile-size-limit --drop-rate=0 ${path}/tiles.json`
+const tippecanoe = `tippecanoe -o ${path}/data/${dataset}.mbtiles -l ${dataset} --maximum-zoom=${maxZoom} --minimum-zoom=2 --no-feature-limit --no-tile-size-limit --drop-rate=0 ${path}/data/${dataset}.json`
 console.log(tippecanoe)
 const ex = execSync(tippecanoe)
 console.log(ex.toString())

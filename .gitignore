@@ -7,6 +7,7 @@ data/encounters/data/encounters.mbtiles
 data/encounters/data/pbf
 data/polygon-layers/in/**
 data/polygon-layers/*.mbtiles
-data/events
+data/events/data
 polygon-layers/token.json
 .idea
+token.js

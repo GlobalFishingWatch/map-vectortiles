@@ -1,7 +1,6 @@
 This is the backend playground for using vector tiles on <a href="https://github.com/GlobalFishingWatch">GlobalFishingWatch</a>
 
-Start by installing all dependencies (npm i). **This has been tested with node v4.7.0 and some dependencies are known to have errors with node > 4. Use a node version manager, ie `nvm use 4`**.
-You will also need to install <a href="https://github.com/mapbox/tippecanoe">tippecanoe</a> globally (`brew install tippecanoe` for example).
+Start by installing all dependencies (npm i). You will also need to install <a href="https://github.com/mapbox/tippecanoe">tippecanoe</a> globally (`brew install tippecanoe` for example).
 
 
 # process tiles
@@ -79,18 +78,21 @@ getHigherZoomLevels will download higher zoom levels in the bounding box
 
 ## inspect mbtiles files
 
-First install tilelive dependencies globally:
+Set Mapbox token first:
+
 ```
-npm install -g tilelive-vector tilelive-xray mbtiles
+export MAPBOX_ACCESS_TOKEN='pk....'
 ```
 
-Then run (uses tessera)
+Run server:
+
 ```
-npm run mbtiles-inspect [mbtiles file path]
-npm run mbtiles-inspect mbtiles://./whatever.mbtiles
+npm run mbview [mbtiles path]
+npm run mbview data/events/tiles.mbtiles
+
 ```
 
-An inspector should be available at http://localhost:8080/
+An inspector should be available at http://localhost:9000/
 
 ## Polygon layers Carto -> Mapbox preparation (deprecated)
 
