@@ -15,7 +15,8 @@ var DATASETS = {
   },
   eez: {
     // url: 'http://cartodb.skytruth.org/user/production/api/v2/sql?filename=eez_used_for_sampling_analysis_&q=SELECT+*+FROM+public.eez_used_for_sampling_analysis_&format=geojson&api_key=',
-    sql: 'SELECT cartodb_id, the_geom, the_geom_webmercator, geoname as name, \'eez:\' || mrgid as region_id, geoname as reporting_name, \'eez:\' || mrgid as reporting_id FROM eez_used_for_sampling_analysis_',
+    // sql: 'SELECT cartodb_id, the_geom, the_geom_webmercator, geoname as name, \'eez:\' || mrgid as region_id, geoname as reporting_name, \'eez:\' || mrgid as reporting_id FROM eez_used_for_sampling_analysis_',
+    sql: 'SELECT * FROM eez_used_for_sampling_analysis_',
     tippecanoe: 'tippecanoe -o {MBTILES} -f -Z 2 -z 12 --drop-densest-as-needed {GEOJSON}'
   },
   highseas: {
@@ -35,22 +36,22 @@ var DATASETS = {
   },
   falklands_conservation: {
     sql: 'SELECT * FROM falkland_islands_conservation_zones'
+  },
+  mpa: {
+    url: 'http://d1gam3xoknrgr2.cloudfront.net/current/WDPA_Apr2018-shapefile.zip',
+    convert: function(callback, filename, dir) {
+      var zipCmd = 'unzip -o -d ' + dir + ' ' + filename
+      console.log(zipCmd)
+      execSync(zipCmd)
+      var jsonFilename = filename + '.json'
+      var cmd = 'ogr2ogr -f "GeoJSON" -where "MARINE in (\'1\', \'2\')" ' +
+        jsonFilename + ' ' + dir + 'WDPA_Apr2018-shapefile-polygons.shp'
+      console.log(cmd)
+      execSync(cmd)
+      callback(jsonFilename)
+    },
+    tippecanoe: 'tippecanoe -o {MBTILES} -f -Z 2 -z 12 --drop-densest-as-needed {GEOJSON}'
   }
-  // mpa: {
-  //   url: 'http://d1gam3xoknrgr2.cloudfront.net/current/WDPA_Apr2018-shapefile.zip',
-  //   convert: function(callback, filename, dir) {
-  //     var zipCmd = 'unzip -o -d ' + dir + ' ' + filename;
-  //     console.log(zipCmd)
-  //     execSync(zipCmd)
-  //     var jsonFilename = filename + '.json'
-  //     var cmd = 'ogr2ogr -f "GeoJSON" -where "MARINE in (\'1\', \'2\')" ' +
-  //       jsonFilename + ' ' + dir + 'WDPA_Apr2018-shapefile-polygons.shp'
-  //     console.log(cmd)
-  //     execSync(cmd)
-  //     callback(jsonFilename)
-  //   },
-  //   tippecanoe: 'tippecanoe -o {MBTILES} -f -Z 2 -z 12 --drop-densest-as-needed {GEOJSON}'
-  // }
 }
 
 var arg = process.argv[2]
@@ -85,7 +86,9 @@ function start() {
   http.get(url, function(response) {
     response.pipe(file)
     file.on('finish', function() {
-      file.close((dataset.convert) ? dataset.convert(tippecanoe, filename, dir) : tippecanoe(filename))
+      console.log('done')
+      file.close()
+      //file.close((dataset.convert) ? dataset.convert(tippecanoe, filename, dir) : tippecanoe(filename))
     })
   })
 }
