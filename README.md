@@ -1,10 +1,11 @@
-This is the backend playground for using vector tiles on <a href="https://github.com/Vizzuality">GlobalFishingWatch</a>
+This is the backend playground for using vector tiles on <a href="https://github.com/GlobalFishingWatch">GlobalFishingWatch</a>
 
 Start by installing all dependencies (npm i). **This has been tested with node v4.7.0 and some dependencies are known to have errors with node > 4. Use a node version manager, ie `nvm use 4`**.
 You will also need to install <a href="https://github.com/mapbox/tippecanoe">tippecanoe</a> globally (`brew install tippecanoe` for example).
 
 
 # process tiles
+
 
 ## encounters conversion (real data)
 
@@ -89,12 +90,21 @@ npm run mbtiles-inspect mbtiles://./whatever.mbtiles
 
 An inspector should be available at http://localhost:8080/
 
-# client
+## Polygon layers Carto -> Mapbox preparation (deprecated)
 
-See
-https://github.com/Vizzuality/GlobalFishingWatch/pull/842
-and
-https://github.com/Vizzuality/GlobalFishingWatch/pull/632
+Downloads CARTO tables from the SQL endpoint as GeoJSON that then get converted to mbtiles, to be uploaded as tilesets on Mapbox (the upload part is manual for now).
+
+**DEPRECATED: We are now using consuming data from SQL tables on a CARTO instance directly, using CARTO's MVT endpoint** 
+
+```
+node polygon-layers/ [dataset_id]
+node polygon-layers/ falklands_conservation
+```
+
+`dataset_id` is the same id as the ones used in workspaces/directory endpoint. Get a list of available datasets by typing
+```
+node polygon-layers/ --list
+```
 
 
 # tile servers
@@ -126,41 +136,3 @@ Run tileserver-gl (port 8080):
 npm run tileserver-gl
 ```
 
-
-
-# Convert Mapbox style to tileserver-gl style ?
-
-```
-"sources": {
-    "composite": {
-        "url": "mapbox://mapbox.mapbox-streets-v7,mapbox.92olaqdt,mapbox.mapbox-terrain-v2,mapbox.9tm8dx88,mapbox.4suez6c9,mapbox.akwnx50w,mapbox.8x70v9py,mapbox.b1l3wqbs,mapbox.cc9j0p61,mapbox.d4advw8k",
-        "type": "vector"
-    }
-},
-```
-TO:
-```
-"sources": {
-  "openmaptiles": {
-    "type": "vector",
-    "url": "http://34.230.92.118:8080/data/haiti.json"
-  }
-},
-```
-
-
-Some `source-layer` names change?
-
-```
-"id": "tunnel-street-case",
-...
-"source": "composite",
-"source-layer": "road",
-```
-TO:
-```
-"id": "tunnel-street-case",
-...
-"source": "openmaptiles",
-"source-layer": "transportation",
-```
