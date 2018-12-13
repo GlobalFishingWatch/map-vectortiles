@@ -16,8 +16,8 @@ var style = {
           "ios": "4.0.0"
       }
   },
-  "center": [-77.90568388584694, 6.00536952859143],
-  "zoom": 3.9352810948240324,
+  "center": [123, 0],
+  "zoom": 5,
   "bearing": 0,
   "pitch": 0,
   "sources": {
@@ -27,12 +27,12 @@ var style = {
       },
       "events": {
         "type": "vector",
-        "tiles": ["http://localhost:7070/{z}/{x}/{y}.pbf"]
+        "tiles": ["https://events-dot-world-fishing-827.appspot.com/datasets/indonesia/events/avoidance/tiles/{z},{x},{y}"]
       },
-      "events_before": {
-        "type": "vector",
-        "tiles": ["http://localhost:7071/{z}/{x}/{y}.pbf"]
-      }
+    //   "events_before": {
+    //     "type": "vector",
+    //     "tiles": ["http://localhost:7071/{z}/{x}/{y}.pbf"]
+    //   }
   },
   "sprite": "mapbox://sprites/enriquetuya/cjmls3scxr6r82sqqwr3gzoyi",
   "glyphs": "mapbox://fonts/enriquetuya/{fontstack}/{range}.pbf",
@@ -54,46 +54,50 @@ var style = {
           "id": "events",
           "type": "circle",
           "source": "events",
-          "source-layer": "events",
+          "source-layer": "default",
           "layout": {},
           "paint": {
-              "circle-color": [
-                  "match",
-                  ["get", "type"],
-                  0,
-                  "hsl(0, 98%, 52%)",
-                  1,
-                  "hsl(57, 85%, 54%)",
-                  2,
-                  "hsl(118, 96%, 50%)",
-                  3,
-                  "hsl(323, 96%, 53%)",
-                  "#000000"
-              ]
-          }
+            "circle-radius": 3,
+            "circle-color": "hsl(0, 100%, 77%)"
+            }
+        //   "paint": {
+        //       "circle-color": [
+        //           "match",
+        //           ["get", "type"],
+        //           0,
+        //           "hsl(0, 98%, 52%)",
+        //           1,
+        //           "hsl(57, 85%, 54%)",
+        //           2,
+        //           "hsl(118, 96%, 50%)",
+        //           3,
+        //           "hsl(323, 96%, 53%)",
+        //           "#000000"
+        //       ]
+        //   }
       },
-      {
-          "id": "events_before",
-          "type": "circle",
-          "source": "events_before",
-          "source-layer": "events",
-          "layout": {},
-          "paint": {
-              "circle-color": [
-                  "match",
-                  ["get", "type"],
-                  0,
-                  "hsl(0, 98%, 52%)",
-                  1,
-                  "hsl(57, 85%, 54%)",
-                  2,
-                  "hsl(118, 96%, 50%)",
-                  3,
-                  "hsl(323, 96%, 53%)",
-                  "#000000"
-              ]
-          }
-      }
+    //   {
+    //       "id": "events_before",
+    //       "type": "circle",
+    //       "source": "events_before",
+    //       "source-layer": "events",
+    //       "layout": {},
+    //       "paint": {
+    //           "circle-color": [
+    //               "match",
+    //               ["get", "type"],
+    //               0,
+    //               "hsl(0, 98%, 52%)",
+    //               1,
+    //               "hsl(57, 85%, 54%)",
+    //               2,
+    //               "hsl(118, 96%, 50%)",
+    //               3,
+    //               "hsl(323, 96%, 53%)",
+    //               "#000000"
+    //           ]
+    //       }
+    //   }
   ],
   "created": "2018-09-28T09:02:04.887Z",
   "id": "cjmls3scxr6r82sqqwr3gzoyi",
@@ -135,11 +139,11 @@ document.addEventListener('mouseup', () => {
     ['>', 'datetime', d],
     ['<', 'datetime', d + MONTH],
   ])
-  map.setFilter('events_before', [
-    'all',
-    ['>', 'datetime', d],
-    ['<', 'datetime', d + MONTH],
-  ])
+//   map.setFilter('events_before', [
+//     'all',
+//     ['>', 'datetime', d],
+//     ['<', 'datetime', d + MONTH],
+//   ])
 })
 document.addEventListener('mousemove', (e) => {
   if (dragging === false) {
@@ -154,5 +158,8 @@ document.addEventListener('mousemove', (e) => {
 
 map.on('load', () => {
   console.log('map loaded')
-
+  console.log(map.isSourceLoaded('events'))
+  console.log(map.getLayer('events'))
 })
+
+map.addControl(new MapboxInspect());
