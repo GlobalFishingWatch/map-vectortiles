@@ -27,7 +27,7 @@ var style = {
       },
       "events": {
         "type": "vector",
-        "tiles": ["https://events-dot-world-fishing-827.appspot.com/datasets/indonesia/events/avoidance/tiles/{z},{x},{y}"]
+        "tiles": ["https://events-dot-world-fishing-827.appspot.com/datasets/indonesia/events/fishing/tiles/{z},{x},{y}"]
       },
     //   "events_before": {
     //     "type": "vector",
@@ -117,7 +117,7 @@ var map = new mapboxgl.Map({
 
 
 var DATE_START = new Date(2010,0,1).getTime()
-var DATE_END = new Date(2016,11,31).getTime()
+var DATE_END = new Date(2018,11,31).getTime()
 var MONTH = 2592000000 * 12
 var dateInterval = DATE_END - DATE_START
 
@@ -133,16 +133,18 @@ thumb.addEventListener('mousedown', () => {
 })
 document.addEventListener('mouseup', () => {
   dragging = false
-  console.log(new Date(d))
+  const end = d + MONTH;
+  console.log(d, end, new Date(d))
   map.setFilter('events', [
     'all',
-    ['>', 'datetime', d],
-    ['<', 'datetime', d + MONTH],
+    // ['==', 'event_type', 'fishing']
+    ['>', 'timestamp', d / 1000],
+    ['<', 'timestamp', end / 1000],
   ])
 //   map.setFilter('events_before', [
 //     'all',
-//     ['>', 'datetime', d],
-//     ['<', 'datetime', d + MONTH],
+//     ['>', 'timestamp', d],
+//     ['<', 'timestamp', d + MONTH],
 //   ])
 })
 document.addEventListener('mousemove', (e) => {
@@ -153,7 +155,7 @@ document.addEventListener('mousemove', (e) => {
   thumb.style.left = `${x}px`
 
   const r = x / width
-  d = DATE_START + dateInterval * r
+  d = Math.round(DATE_START + dateInterval * r)
 })
 
 map.on('load', () => {

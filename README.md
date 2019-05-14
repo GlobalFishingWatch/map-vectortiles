@@ -5,6 +5,17 @@ Start by installing all dependencies (npm i). You will also need to install <a h
 
 # process tiles
 
+## inspect a tile
+
+Download a vector tile somewhere and do: 
+
+```
+./inspect-vector-tile path/to/tile.pbf
+
+```
+
+This is useful in particular when layer name is unknown (ie Mapbox GL `source-layer` value)
+
 
 ## encounters conversion (real data)
 
