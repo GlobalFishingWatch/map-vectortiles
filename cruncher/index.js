@@ -20,7 +20,8 @@ weight -> opacity
 const CONFIG = {
   encounters: {
     convertFields: {start_time: true, latlon: true}
-  }
+  },
+  events: {}
 }
 
 reduce()
@@ -41,7 +42,7 @@ function reduce() {
   })
     .on('reduce', function(data, tile) {
       // console.log('reduce')
-      // console.log(tile)
+      // console.log(data)
 
       // if (tile.error) {
       //   console.log(tile.error)

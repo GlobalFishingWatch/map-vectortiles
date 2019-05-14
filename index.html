@@ -4,22 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link href="https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.css" rel="stylesheet" />
+  <link href="https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.css" rel="stylesheet" />
   <title>hello, vector</title>
   <style media="screen">
     html,body { height: 100%; margin: 0px; padding: 0px; }
   </style>
+  <script src='http://mapbox-gl-inspect.lukasmartinelli.ch/dist/mapbox-gl-inspect.min.js'></script>
+  <link href='http://mapbox-gl-inspect.lukasmartinelli.ch/dist/mapbox-gl-inspect.css' rel='stylesheet' />
 </head>
 <body>
-  <div id="map" style="height: 100%"></div>
+  <div id="map" style="height: 90%"></div>
+  <div id="timebar" style="height: 10%; width: 100%">
+    <div id="thumb" style="height: 100%; width: 10px; background-color: crimson; position: absolute; left: 100px"></div>
+  </div>
 
-  <script src="https://api.mapbox.com/mapbox-gl-js/v0.38.0/mapbox-gl.js"></script>
+  <script src="https://api.tiles.mapbox.com/mapbox-gl-js/v0.49.0/mapbox-gl.js"></script>
+  <script src="./token.js"></script>
   <script src="./index.js"></script>
 
-  <!-- <script type="module">
-    import {addTextToBody} from "./index.js";
-
-    addTextToBody("Modules are pretty cool.");
-  </script> -->
 </body>
 </html>
